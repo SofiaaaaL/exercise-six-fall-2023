@@ -1,4 +1,3 @@
-// this is the application wrapper
 import { useCallback, useEffect, useState } from "react";
 import Header from "@/app/components/Header";
 import { initializeApp } from "firebase/app";
@@ -12,12 +11,10 @@ import {
 } from "firebase/auth";
 
 export default function MyApp({ Component, pageProps }){
-
-    //1. use "is initialize" to track the firebase is initialized; initializing firebase app
     const [appInitialized, setAppInitialized] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-    const [isLoggedIn, setIsLoggedIn] = useState(false); //we don't want them loggeed in in the first load
-    const [userInformation, setUserInformation] = useState(null); //what we are going to pass down
+    const [isLoggedIn, setIsLoggedIn] = useState(false); 
+    const [userInformation, setUserInformation] = useState(null); 
     const [error, setError] = useState(null);
 
     const createUser = useCallback((e) => {
@@ -88,27 +85,22 @@ export default function MyApp({ Component, pageProps }){
             })
     }, [signOut, setError, setIsLoggedIn, setUserInformation]);
 
-    //initialize firebase
     useEffect(() => {
         initializeApp(firebaseConfig);
         setAppInitialized(true);
     }, []);
 
-    //User had loaded page, check their status and set state according 
     useEffect(() => {
         if (appInitialized) {
             const auth = getAuth();
             onAuthStateChanged(auth, (user) => {
                 if (user) {
-                    //user is signed in, see docs for a list of available pro
                     setUserInformation(user);
                     setIsLoggedIn(true);
                 } else {
-                    //user is signed out
                     setUserInformation(null);
                     setIsLoggedIn(false);
                 }
-                //setLoading to false when everything is complete
                 setIsLoading(false);
             })
         }
@@ -129,6 +121,5 @@ export default function MyApp({ Component, pageProps }){
             <p>{error}</p>
         </>
     );
-
 
 }

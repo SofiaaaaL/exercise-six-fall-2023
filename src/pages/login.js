@@ -5,8 +5,7 @@ import LoginForm from "@/app/components/LoginForm";
 export default function Login({isLoggedIn, loginUser}) {
     const router = useRouter();
     useEffect(() => {
-        //if user is logged in, send them to the profile page
-        if (isLoggedIn) router.push("/"); //changes the url
+        if (isLoggedIn) router.push("/"); 
     }, [isLoggedIn])
 
     return(
