@@ -1,12 +1,21 @@
 import Header from "@/app/components/Header";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import CreateUserForm from "@/app/components/CreateUserForm";
 
-export default function CreateUser() {
+export default function CreateUser({createUser, isLoggedIn }) {
+
+    const router = useRouter();
+    useEffect(() => {
+        //if user is logged in, send them to the profile page
+        if (isLoggedIn) router.push("/");
+
+    }, [isLoggedIn])
+
     return(
-        <>
-            <Header />
-            <main>
+        <main>
                 <h1>Create User</h1>
-            </main>
-        </>
+                <CreateUserForm createUser={createUser}/>
+        </main>
     );
 }

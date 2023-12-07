@@ -13,3 +13,10 @@
     padding: 3px;
     text-decoration: none;
 }
+
+.Form {
+    display: flex;
+    flex-direction: column;
+    max-width: 375px;
+}
+
